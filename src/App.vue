@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <h1>Hello</h1>
-  </div>
+  <v-app>
+    <Navbar/>
+    <router-view/>
+  </v-app>
 </template>
 
 <script>
-export default {
+import Navbar from "@/components/Navbar";
 
+export default {
+  components: {
+    Navbar
+  },
 }
 </script>
 
 <style>
-
+.container{
+  padding: 0;
+  margin: 0;
+}
 </style>
