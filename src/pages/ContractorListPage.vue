@@ -1,6 +1,9 @@
 <template>
   <v-container fluid>
     <h1>Контрагенты</h1>
+    <ContractorListUtils
+        @searchResult="updateContractorList"
+    />
     <ContractorList
         :headers="headers"
         :contractors="contractors"
@@ -11,10 +14,12 @@
 <script>
 import ContractorList from "@/components/ContractorList";
 import axios from "axios";
+import ContractorListUtils from "@/components/ContractorListUtils";
 
 export default {
   name: "ContractorListPage",
   components: {
+    ContractorListUtils,
     ContractorList
   },
   data() {
@@ -42,6 +47,9 @@ export default {
       } catch (e) {
         alert('Ошибка')
       }
+    },
+    updateContractorList(contractors){
+      this.contractors = contractors;
     }
   },
   mounted() {
