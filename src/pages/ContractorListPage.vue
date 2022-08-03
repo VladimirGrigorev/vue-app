@@ -5,7 +5,7 @@
         @searchResult="updateContractorList"
     />
 
-    <TabulatorTable />
+    <TabulatorTable :key="$store.getters.getKey"/>
   </v-container>
 </template>
 

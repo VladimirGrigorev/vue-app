@@ -6,17 +6,21 @@
             cols="2"
             md="2"
         >
-          <input class="text-field"
-                 v-model="searchQuery"
-                 placeholder="Поиск..."
-          />
+          <v-text-field
+              label="Поиск..."
+              v-model="searchQuery"
+          ></v-text-field>
         </v-col>
         <v-col
             cols="3"
-            md="3">
+            md="3"
+            style="display:flex; align-items: center;"
+        >
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                  small
+                  style="border: 1px solid #ccc;"
                   height="30px"
                   v-bind="attrs"
                   v-on="on"
@@ -114,11 +118,12 @@ export default {
 
 <style scoped>
 .contractor-list-utils{
-  background-color: rgb(202, 238, 218);
-  height: 40px;
+  height: 60px;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 .text-field {
   background-color: white;

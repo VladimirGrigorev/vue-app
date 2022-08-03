@@ -120,9 +120,9 @@ export default {
   data() {
     return {
       dialog: false,
-      invisibleColumns: [],
+      invisibleColumns: this.$store.getters.getInvisibleColumns,
       selectedInvisibleColumns: [],
-      visibleColumns: this.$store.getters.getAllColumns,
+      visibleColumns: this.$store.getters.getVisibleColumns,
       selectedVisibleColumns: [],
     }
   },
@@ -157,6 +157,7 @@ export default {
       console.log(this.visibleColumns);
       this.$store.commit("changeVisibility", this.visibleColumns);
       this.dialog = false;
+      this.$store.commit("changeKey");
     }
   }
 }
