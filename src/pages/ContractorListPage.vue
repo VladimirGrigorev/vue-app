@@ -4,10 +4,34 @@
     <ContractorListUtils
         @searchResult="updateContractorList"
     />
-    <ContractorList
-        :headers="headers"
-        :contractors="contractors"
-    />
+
+    <v-radio-group
+        v-model="tableType"
+        row
+    >
+      <v-radio
+          label="Tabulator"
+          value='t'
+      ></v-radio>
+      <v-radio
+          label="AG Grid"
+          value='a'
+      ></v-radio>
+    </v-radio-group>
+
+    <TabulatorTable />
+
+<!--    <AgGridTable-->
+<!--        v-model:show=true-->
+<!--        :columnDefs="columnDefs"-->
+<!--        :contractors="contractors"-->
+<!--        :default-col-def="defaultColDef"-->
+<!--    />-->
+
+<!--    <ContractorList-->
+<!--        :headers="headers"-->
+<!--        :contractors="contractors"-->
+<!--    />-->
   </v-container>
 </template>
 
@@ -15,10 +39,14 @@
 import ContractorList from "@/components/ContractorList";
 import axios from "axios";
 import ContractorListUtils from "@/components/ContractorListUtils";
+import TabulatorTable from "@/components/TabulatorTable";
+import AgGridTable from "@/components/AgGridTable";
 
 export default {
   name: "ContractorListPage",
   components: {
+    AgGridTable,
+    TabulatorTable,
     ContractorListUtils,
     ContractorList
   },
@@ -35,6 +63,20 @@ export default {
       contractors: [],
       page: 0,
       size: 50,
+      tableType: 't',
+      columnDefs: [
+        {field: 'lbl', headerName: 'Обозначение'},
+        {field: 'nameFull', headerName: 'Полное название', width: 250},
+        {field: 'address', headerName: 'Юридический адрес', width: 250},
+        {field: 'inn', headerName: 'ИНН'},
+        {field: 'kpp', headerName: 'КПП'},
+        {field: 'listWork', headerName: 'Укрупненный перечень товаров/услуг', width: 400},
+      ],
+      defaultColDef: {
+        sortable: true,
+        filter: true,
+        resizable: true
+      },
     }
   },
   methods: {
@@ -48,7 +90,7 @@ export default {
         alert('Ошибка')
       }
     },
-    updateContractorList(contractors){
+    updateContractorList(contractors) {
       this.contractors = contractors;
     }
   },

@@ -3,13 +3,33 @@
     <v-container class="contractor-list-utils" fluid>
       <v-row>
         <v-col
-            cols="12"
-            md="4"
+            cols="2"
+            md="2"
         >
           <input class="text-field"
                  v-model="searchQuery"
                  placeholder="Поиск..."
           />
+        </v-col>
+        <v-col
+            cols="3"
+            md="3">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  height="30px"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                Действия
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <ColumnSelectionDialog />
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-col>
       </v-row>
     </v-container>
@@ -18,9 +38,11 @@
 
 <script>
 import axios from "axios";
+import ColumnSelectionDialog from "@/components/ColumnSelectionDialog";
 
 export default {
   name: "ContractorListUtils",
+  components: {ColumnSelectionDialog},
   data() {
     return {
       searchQuery: '',
