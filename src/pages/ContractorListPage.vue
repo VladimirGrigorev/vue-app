@@ -1,37 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid style="padding: 12px">
     <h1>Контрагенты</h1>
     <ContractorListUtils
         @searchResult="updateContractorList"
     />
 
-    <v-radio-group
-        v-model="tableType"
-        row
-    >
-      <v-radio
-          label="Tabulator"
-          value='t'
-      ></v-radio>
-      <v-radio
-          label="AG Grid"
-          value='a'
-      ></v-radio>
-    </v-radio-group>
-
     <TabulatorTable />
-
-<!--    <AgGridTable-->
-<!--        v-model:show=true-->
-<!--        :columnDefs="columnDefs"-->
-<!--        :contractors="contractors"-->
-<!--        :default-col-def="defaultColDef"-->
-<!--    />-->
-
-<!--    <ContractorList-->
-<!--        :headers="headers"-->
-<!--        :contractors="contractors"-->
-<!--    />-->
   </v-container>
 </template>
 
@@ -40,12 +14,10 @@ import ContractorList from "@/components/ContractorList";
 import axios from "axios";
 import ContractorListUtils from "@/components/ContractorListUtils";
 import TabulatorTable from "@/components/TabulatorTable";
-import AgGridTable from "@/components/AgGridTable";
 
 export default {
   name: "ContractorListPage",
   components: {
-    AgGridTable,
     TabulatorTable,
     ContractorListUtils,
     ContractorList
@@ -63,7 +35,6 @@ export default {
       contractors: [],
       page: 0,
       size: 50,
-      tableType: 't',
       columnDefs: [
         {field: 'lbl', headerName: 'Обозначение'},
         {field: 'nameFull', headerName: 'Полное название', width: 250},

@@ -23,6 +23,7 @@
               cols="5"
           >
             <v-card>
+              <h4 style="text-align: center; margin-top: 10px;">Не показывать</h4>
               <v-list dense style="border: 1px solid #ccc; margin-top: 10px" class="max-v-list-height">
                 <v-list-item-group
                     v-model="selectedInvisibleColumns"
@@ -52,10 +53,10 @@
             <v-btn class="icon-btn" @click="allVisible">
               <v-icon>mdi-chevron-double-right</v-icon>
             </v-btn>
-            <v-btn class="icon-btn">
+            <v-btn class="icon-btn" @click="addToVisible">
               <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
-            <v-btn class="icon-btn">
+            <v-btn class="icon-btn" @click="addToInvisible">
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
             <v-btn class="icon-btn" @click="allInvisible">
@@ -67,6 +68,7 @@
               cols="5"
           >
             <v-card>
+              <h4 style="text-align: center; margin-top: 10px;">Показать в представлении</h4>
               <v-list dense style="border: 1px solid #ccc; margin-top: 10px" class="max-v-list-height">
                 <v-list-item-group
                     v-model="selectedVisibleColumns"
@@ -100,7 +102,12 @@
         <v-btn
             @click="dialog = false"
         >
-          Закрыть
+          Отмена
+        </v-btn>
+        <v-btn
+            @click="applySettings"
+        >
+          Применить
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -120,13 +127,36 @@ export default {
     }
   },
   methods: {
+    deleteItems(array, items){
+      items.forEach(function(item) {
+        const i = array.indexOf(item);
+        if (i > -1) {
+          array.splice(i, 1);
+        }
+      });
+    },
     allVisible(){
       this.visibleColumns.push(...this.invisibleColumns);
       this.invisibleColumns = [];
     },
+    addToVisible(){
+      this.visibleColumns.push(...this.selectedInvisibleColumns);
+      this.deleteItems(this.invisibleColumns, this.selectedInvisibleColumns);
+      this.selectedInvisibleColumns = [];
+    },
+    addToInvisible(){
+      this.invisibleColumns.push(...this.selectedVisibleColumns);
+      this.deleteItems(this.visibleColumns, this.selectedVisibleColumns);
+      this.selectedVisibleColumns = [];
+    },
     allInvisible(){
       this.invisibleColumns.push(...this.visibleColumns);
       this.visibleColumns = [];
+    },
+    applySettings(){
+      console.log(this.visibleColumns);
+      this.$store.commit("changeVisibility", this.visibleColumns);
+      this.dialog = false;
     }
   }
 }

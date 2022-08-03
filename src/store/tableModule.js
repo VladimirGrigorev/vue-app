@@ -10,9 +10,18 @@ export default {
         ]
     },
     mutations: {
-        setColumns(state, payload){
-            state.columns = payload
-        },
+        changeVisibility(state, items){
+            state.columns.forEach(function(item) {
+                item.visible = false;
+            });
+            items.forEach(function(item) {
+                const i = state.columns.indexOf(item);
+                if (i > -1) {
+                    state.columns[i].visible = true;
+                }
+            });
+            console.log(state.columns);
+        }
     },
     getters: {
         getAllColumns(state){
