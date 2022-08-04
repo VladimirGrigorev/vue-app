@@ -52,6 +52,13 @@ export default {
         },
         getKey(state){
             return state.tableKey;
+        },
+        getColumnsTitle(state){
+            var newArr = ['Все'];
+            state.columns.forEach(function(item) {
+                newArr.push(item.title);
+            });
+            return newArr;
         }
     },
     actions: {},

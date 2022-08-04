@@ -1,5 +1,7 @@
 <template>
-  <div id="example-table">
+  <div>
+
+    <div id="example-table"></div>
   </div>
 </template>
 
@@ -20,34 +22,6 @@ export default {
     }
   },
   methods: {
-    findAgents(table) {
-      table.on("rowClick", async function (e, row) {
-        const response = await axios.post(
-            `https://open-etp-backend.inlinegroup-c.ru/Open-ETP/jooq/contractor/${row.getData().objectId}/agent/filter/?page=0&size=2000`
-        );
-        var agents = response.data.content;
-
-        var parentRow = table.searchRows("objectId","=",row.getData().objectId);
-        var tempParentRowData = parentRow[0].getData();
-        tempParentRowData._children = [];
-
-        var children = [];
-        agents.forEach(function(item, index, array) {
-          var child = {
-            lbl: item.lastName,
-            nameFull: item.midName,
-            address: item.firstName,
-            inn: item.office,
-          }
-          children.push(child);
-        });
-        tempParentRowData._children.push(...children);
-
-        parentRow[0].update({_children:tempParentRowData._children});
-        table.redraw();
-      });
-    },
-
     createTable(){
       var table = new Tabulator("#example-table", {
         // height:500,
@@ -72,21 +46,10 @@ export default {
         dataTree:true,
       });
 
-      this.findAgents(table);
-    },
-
-    async getAgents(id) {
-      try {
-        const response = await axios.post(
-            `https://open-etp-backend.inlinegroup-c.ru/Open-ETP/jooq/contractor/${id}/agent/filter/?page=0&size=2000`
-        );
-        this.agents.push(...response.data.content);
-        console.log(this.agents);
-        this.contractors[id]._children = this.agents;
-        console.log("afa");
-      } catch (e) {
-        alert('Ошибка')
-      }
+      //trigger download of data.xlsx file
+      document.getElementById("download-xlsx").addEventListener("click", function(){
+        table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
+      });
     },
   },
   mounted() {

@@ -1,26 +1,53 @@
 <template>
   <v-form>
     <v-container class="contractor-list-utils" fluid>
-      <v-row>
+      <v-row style="display:flex; align-items: center;">
+<!--        <v-col-->
+<!--            cols="3"-->
+<!--        >-->
+<!--          <v-text-field-->
+<!--              style="border-radius: 6px; margin: 8px 25px 0 20px"-->
+<!--              background-color="white"-->
+<!--              height="38px"-->
+<!--              label="Поиск..."-->
+<!--              v-model="searchQuery"-->
+<!--          ></v-text-field>-->
+<!--          <v-row style="display:flex; align-items: center;">-->
+<!--            <v-col-->
+<!--                cols="6"-->
+<!--                style="margin-top: 25px;"-->
+<!--              >-->
+<!--              <v-select-->
+<!--                  style="border-radius: 10px 0 0 10px !important;"-->
+<!--                  :items="$store.getters.getColumnsTitle"-->
+<!--                  v-model="selectColumn"-->
+<!--                  prepend-icon="mdi-magnify"-->
+<!--                  dense-->
+<!--                  solo-->
+<!--              ></v-select>-->
+<!--            </v-col>-->
+<!--            <v-col-->
+<!--                cols="6"-->
+<!--            >-->
+<!--              <v-text-field-->
+<!--                  style="border-radius: 6px; margin: 8px 0 0 25px"-->
+<!--                  background-color="white"-->
+<!--                  height="38px"-->
+<!--                  label="Поиск..."-->
+<!--                  v-model="searchQuery"-->
+<!--              ></v-text-field>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
+<!--        </v-col>-->
+
         <v-col
-            cols="2"
-            md="2"
-        >
-          <v-text-field
-              label="Поиск..."
-              v-model="searchQuery"
-          ></v-text-field>
-        </v-col>
-        <v-col
-            cols="3"
-            md="3"
-            style="display:flex; align-items: center;"
+            cols="1"
         >
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   small
-                  style="border: 1px solid #ccc;"
+                  style="border: 1px solid #ccc; margin-left: 30px"
                   height="30px"
                   v-bind="attrs"
                   v-on="on"
@@ -34,6 +61,18 @@
               </v-list-item>
             </v-list>
           </v-menu>
+        </v-col>
+        <v-col>
+          <div>
+            <v-btn
+                small
+                style="border: 1px solid #ccc; margin-left: 30px"
+                id="download-xlsx"
+                height="30px"
+            >
+              Скачать XLSX
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -51,6 +90,7 @@ export default {
     return {
       searchQuery: '',
       contractors: [],
+      selectColumn: 'Обозначение'
     }
   },
   methods: {
@@ -124,10 +164,9 @@ export default {
   margin-bottom: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
+  background-color: rgb(202, 238, 218);
 }
-.text-field {
-  background-color: white;
-  padding: 3px 6px;
-  border: 1px solid #ccc;
+.col{
+  padding: 0;
 }
 </style>
