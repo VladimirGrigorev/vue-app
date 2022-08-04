@@ -1,7 +1,12 @@
 <template>
   <v-form>
-    <v-container class="contractor-list-utils" fluid>
-      <v-row style="display:flex; align-items: center;">
+    <v-container
+        class="contractor-list-utils"
+        fluid
+    >
+      <v-row
+          class="row"
+      >
 <!--        <v-col-->
 <!--            cols="3"-->
 <!--        >-->
@@ -47,7 +52,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   small
-                  style="border: 1px solid #ccc; margin-left: 30px"
+                  class="utils__btns"
                   height="30px"
                   v-bind="attrs"
                   v-on="on"
@@ -66,7 +71,7 @@
           <div>
             <v-btn
                 small
-                style="border: 1px solid #ccc; margin-left: 30px"
+                class="utils__btns"
                 id="download-xlsx"
                 height="30px"
             >
@@ -168,5 +173,13 @@ export default {
 }
 .col{
   padding: 0;
+}
+.row{
+  display:flex;
+  align-items: center;
+}
+.utils__btns{
+  border: 1px solid #ccc;
+  margin-left: 30px
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div id="example-table"></div>
   </div>
 </template>
@@ -8,7 +7,6 @@
 <script>
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import  "tabulator-tables/dist/css/tabulator_simple.css";
-import axios from "axios";
 
 export default {
   name: "TabulatorTable",
